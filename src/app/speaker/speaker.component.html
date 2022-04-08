@@ -1,0 +1,118 @@
+<table class="table table-dark table-striped" *ngIf="allSpeakers.length > 0">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Handlers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of allSpeakers">
+      <td>{{ item.Speaker.id }}</td>
+      <td>{{ item.Speaker.name | titlecase }}</td>
+      <td>{{ item.Speaker.address | titlecase }}</td>
+      <td class="d-flex justify-content-evenly">
+        <button
+          (click)="
+            showDetails(
+              item.Speaker.id,
+              item.Speaker.name,
+              item.Speaker.address,
+              item.Speaker.role,
+              item.Speaker.image
+            )
+          "
+          class="btn btn-primary"
+        >
+          Details
+        </button>
+        <button
+          (click)="
+            edit(
+              item.Speaker.id,
+              item.Speaker.name,
+              item.Speaker.address,
+              item.Speaker.role,
+              item.Speaker.image
+            )
+          "
+          class="btn btn-success"
+        >
+          Edit
+        </button>
+        <button (click)="remove(item.Speaker.id)" class="btn btn-danger">
+          Remove
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="hideDiv">
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>address</th>
+        <th>role</th>
+        <th>image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ newSpeaker.id }}</td>
+        <td>{{ newSpeaker.name }}</td>
+        <td>{{ newSpeaker.address }}</td>
+        <td>{{ newSpeaker.role }}</td>
+        <td>
+          <img
+            width="100"
+            height="100"
+            style="border-radius: 50%"
+            src="{{ newSpeaker.image }}"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="add">
+  <label *ngIf="showAddButton">Id</label>
+  <input *ngIf="showAddButton" [(ngModel)]="newSpeaker.id" type="number" />
+  <label>Name</label>
+  <input [(ngModel)]="newSpeaker.name" type="text" />
+  <label>Address</label>
+  <input [(ngModel)]="newSpeaker.address" type="text" />
+  <label>Role</label>
+  <input [(ngModel)]="newSpeaker.role" type="text" />
+  <label>Image</label>
+  <select [(ngModel)]="newSpeaker.image">
+    <option>./assets/images/1.jpg</option>
+    <option>./assets/images/2.jpg</option>
+    <option>./assets/images/3.jpg</option>
+    <option>./assets/images/4.jpg</option>
+    <option>./assets/images/5.jpg</option>
+    <option>./assets/images/6.jpg</option>
+    <option>./assets/images/7.jpg</option>
+    <option>./assets/images/8.jpg</option>
+    <option>./assets/images/9.jpg</option>
+    <option>./assets/images/10.jpg</option>
+  </select>
+  <button
+    *ngIf="showAddButton"
+    (click)="save()"
+    class="btn btn-success add-button mt-2"
+  >
+    Save new Speaker
+  </button>
+  <button
+    *ngIf="showEditButton"
+    (click)="confirmEdit()"
+    class="btn btn-success add-button mt-2"
+  >
+    Confirm Edit
+  </button>
+</div>
